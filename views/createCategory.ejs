@@ -1,0 +1,16 @@
+<!-- categories.ejs -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Categories</title>
+</head>
+
+<body>
+    <h1>Categories</h1>
+    <a href="/categories/create">Add New Category</a>
+    <ul>
+        <% categories.forEach(category=> { %>
+            <li>
+                <%= category.name %>
+                    <a href="/categories/<%= category.id %>/edit">Edit</a
