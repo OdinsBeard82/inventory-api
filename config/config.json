@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "your_dev_username",
-    "password": "your_dev_password",
-    "database": "inventory_dev",
+    "username": "danielturbak-charles",
+    "password": null,
+    "database": "inventory_api_dev",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "test": {
-    "username": "your_test_username",
-    "password": "your_test_password",
-    "database": "inventory_test",
+    "username": "danielturbak-charles",
+    "password": null,
+    "database": "inventory_api_test",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "production": {
-    "username": "your_prod_username",
-    "password": "your_prod_password",
-    "database": "inventory_prod",
-    "host": "your_production_db_host",
-    "dialect": "mysql"
+    "username": "danielturbak-charles",
+    "password": null,
+    "database": "inventory_api_prod",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
   }
 }
