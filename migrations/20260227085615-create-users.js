@@ -14,12 +14,21 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
-      }, // ✅ comma here fixes the syntax
+      },
       password_hash: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('NOW()')
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('NOW()')
       }
-      // You can add more columns later, step by step
     });
   },
 
