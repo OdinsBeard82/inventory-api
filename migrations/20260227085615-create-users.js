@@ -14,6 +14,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
+      }, // ✅ comma here fixes the syntax
+      password_hash: {
+        type: Sequelize.STRING,
+        allowNull: false
       }
       // You can add more columns later, step by step
     });
