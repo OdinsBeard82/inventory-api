@@ -9,6 +9,11 @@ module.exports = {
         defaultValue: Sequelize.literal('uuid_generate_v4()'),
         primaryKey: true,
         type: Sequelize.UUID
+      },
+      username: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       }
       // You can add more columns later, step by step
     });
