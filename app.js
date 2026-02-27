@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
+const db = require('.models');
 
 // Middleware
 app.use(express.json());
