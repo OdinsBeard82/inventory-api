@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "danielturbak-charles",
-    "password": null,
+    "password": "",
     "database": "inventory_api_dev",
     "host": "127.0.0.1",
     "dialect": "postgres"

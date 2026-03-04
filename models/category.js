@@ -1,14 +1,7 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../database');
+'use strict';
 
-class Category extends Model {
-  static associate(models) {
-    Category.hasMany(models.Item);
-  }
-}
-
-Category.init(
-  {
+module.exports = (sequelize, DataTypes) => {
+  const Category = sequelize.define('Category', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -17,13 +10,14 @@ Category.init(
     description: {
       type: DataTypes.TEXT,
     },
-  },
-  {
-    sequelize,
-    modelName: 'Category',
+  }, {
     tableName: 'Categories',
     timestamps: true,
-  }
-);
+  });
 
-module.exports = Category;
+  Category.associate = (models) => {
+    Category.hasMany(models.Item);
+  };
+
+  return Category;
+};

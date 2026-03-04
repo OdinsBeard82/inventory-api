@@ -1,14 +1,7 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../database');
+'use strict';
 
-class Item extends Model {
-  static associate(models) {
-    Item.belongsTo(models.Category);
-  }
-}
-
-Item.init(
-  {
+module.exports = (sequelize, DataTypes) => {
+  const Item = sequelize.define('Item', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -24,13 +17,14 @@ Item.init(
       type: DataTypes.DECIMAL,
       allowNull: false,
     },
-  },
-  {
-    sequelize,
-    modelName: 'Item',
+  }, {
     tableName: 'Items',
     timestamps: true,
-  }
-);
+  });
 
-module.exports = Item;
+  Item.associate = (models) => {
+    Item.belongsTo(models.Category);
+  };
+
+  return Item;
+};
