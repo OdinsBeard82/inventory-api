@@ -1,4 +1,3 @@
-
 'use strict';
 
 const bcrypt = require('bcrypt');
@@ -13,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
         username: {
             type: DataTypes.STRING,
             unique: true,
+            allowNull: false,
+        },
+        password: {
+            type: DataTypes.VIRTUAL,
             allowNull: false,
         },
         password_hash: {
