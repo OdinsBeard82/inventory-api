@@ -1,1 +1,3 @@
-const categoryController = require('../controllers/authController');
+const authController = require('../controllers/authController');
+
+router.post('/register', authController.register);
