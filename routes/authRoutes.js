@@ -1,0 +1,1 @@
+const categoryController = require('../controllers/authController');
