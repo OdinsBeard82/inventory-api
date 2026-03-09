@@ -6,7 +6,7 @@ async function test() {
     console.log('✅ Database connection OK');
 
     const user = await db.User.create({
-      username: 'testuser',
+      username: 'testuser2',
       password: 'mypassword123'
     });
 
