@@ -7,7 +7,7 @@ async function test() {
 
     const user = await db.User.create({
       username: 'testuser',
-      password_hash: 'hashedpassword123'
+      password: 'mypassword123'
     });
 
     console.log('✅ User created:', user.toJSON());
