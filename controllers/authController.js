@@ -1,3 +1,6 @@
+const db = require('../models');
+const User = db.User;
+
 exports.register = async (req, res) => {
     const { username, password } = req.body;
 
@@ -13,8 +16,11 @@ exports.register = async (req, res) => {
         });
 
     } catch (error) {
+        console.error(error);
+
         res.status(500).json({
             message: "Error creating user"
+
         });
     }
 };
