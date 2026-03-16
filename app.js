@@ -13,6 +13,7 @@ const itemRoutes = require('./routes/itemRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const authRoutes = require('./routes/authRoutes');
 
+
 app.use('/api/users', userRoutes);
 app.use('/api/items', itemRoutes);
 app.use('/api/categories', categoryRoutes);
