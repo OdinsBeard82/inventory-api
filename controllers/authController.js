@@ -1,6 +1,7 @@
 const db = require('../models');
 const User = db.User;
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 exports.register = async (req, res) => {
     const { username, password } = req.body;
@@ -40,6 +41,12 @@ exports.login = async (req, res) => {
     if (!passwordValid) {
         return res.status(401).json({ message: "invalid username or password" });
     }
+    if (passwordValid) {
+        const accessToken = jwt.sign(
+            { id: user.id, usernam: user.username },
+        );
 
-    res.status(200).json({ message: "login successful" });
+        res.json({ accessToken })
+
+    }
 };
