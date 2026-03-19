@@ -28,25 +28,30 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     const { username, password } = req.body;
 
-    const user = await User.findOne({
-        where: { username }
-    });
+    try {
+        const user = await User.findOne({
+            where: { username }
+        });
 
-    if (!user) {
-        return res.status(401).json({ message: "invalid username or password" });
-    }
+        if (!user) {
+            return res.status(401).json({ message: "invalid username or password" });
+        }
 
-    const passwordValid = await bcrypt.compare(password, user.password_hash);
+        const passwordValid = await bcrypt.compare(password, user.password_hash);
 
-    if (!passwordValid) {
-        return res.status(401).json({ message: "invalid username or password" });
-    }
-    if (passwordValid) {
+        if (!passwordValid) {
+            return res.status(401).json({ message: "invalid username or password" });
+        }
+
         const accessToken = jwt.sign(
-            { id: user.id, usernam: user.username },
+            { id: user.id, username: user.username },
+            process.env.TOKEN_SECRET
         );
 
-        res.json({ accessToken })
+        res.status(200).json({ accessToken });
 
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Login error" });
     }
 };
