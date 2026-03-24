@@ -1,16 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const itemController = require('../controllers/itemController');
-const requireAuth = require('../middleware/auth');
+const requireAuth = require('../middleware/authMiddleware');
 
-// Public routes (read-only)
-router.get('/items', itemController.listItems);
-router.get('/items/create', requireAuth, itemController.createItemPage); // protect page if needed
+// list items (public)
+router.get('/', itemController.listItems);
 
-// Protected routes (only logged-in users can modify data)
-router.post('/items', requireAuth, itemController.createItem);
-router.get('/items/:id/edit', requireAuth, itemController.editItemPage);
-router.post('/items/:id', requireAuth, itemController.updateItem);
-router.post('/items/:id/delete', requireAuth, itemController.deleteItem);
+// create item page (protected)
+router.get('/create', requireAuth, itemController.createItemPage);
+
+// create item (protected)
+router.post('/', requireAuth, itemController.createItem);
+
+// edit page
+router.get('/:id/edit', requireAuth, itemController.editItemPage);
+
+// update
+router.post('/:id', requireAuth, itemController.updateItem);
+
+// delete
+router.post('/:id/delete', requireAuth, itemController.deleteItem);
 
 module.exports = router;
