@@ -11,8 +11,13 @@ async function listItems(req, res) {
 }
 
 async function createItemPage(req, res) {
-    const categories = await Category.findAll();
-    res.json(categories);
+    try {
+        const categories = await Category.findAll();
+        res.json(categories);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to fetch items" });
+    }
 }
 
 async function createItem(req, res) {
