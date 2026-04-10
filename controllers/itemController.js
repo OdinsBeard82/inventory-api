@@ -32,23 +32,38 @@ async function createItem(req, res) {
 }
 
 async function editItemPage(req, res) {
-    const item = await Item.findByPk(req.params.id);
-    const categories = await Category.findAll();
-    res.json({ item, categories });
+    try {
+        const item = await Item.findByPk(req.params.id);
+        const categories = await Category.findAll();
+        res.json({ item, categories });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to fetch item" });
+    }
 }
 
 async function updateItem(req, res) {
-    const { name, description, quantity, price, categoryId } = req.body;
-    await Item.update(
-        { name, description, quantity, price, categoryId },
-        { where: { id: req.params.id } }
-    );
-    res.json({ message: "Item updated" });
+    try {
+        const { name, description, quantity, price, categoryId } = req.body;
+        await Item.update(
+            { name, description, quantity, price, categoryId },
+            { where: { id: req.params.id } }
+        );
+        res.json({ message: "Item updated" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to update item" });
+    }
 }
 
 async function deleteItem(req, res) {
-    await Item.destroy({ where: { id: req.params.id } });
-    res.json({ message: "Item deleted" });
+    try {
+        await Item.destroy({ where: { id: req.params.id } });
+        res.json({ message: "Item deleted" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to delete item" });
+    }
 }
 
 module.exports = {
