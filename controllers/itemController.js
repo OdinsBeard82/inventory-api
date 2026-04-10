@@ -1,8 +1,13 @@
 const { Item, Category } = require('../models');
 
 async function listItems(req, res) {
-    const items = await Item.findAll({ include: Category });
-    res.json(items);
+    try {
+        const items = await Item.findAll({ include: Category });
+        res.json(items);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to fetch items" });
+    }
 }
 
 async function createItemPage(req, res) {
