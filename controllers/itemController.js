@@ -16,14 +16,19 @@ async function createItemPage(req, res) {
         res.json(categories);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Failed to fetch items" });
+        res.status(500).json({ error: "Failed to fetch categories" });
     }
 }
 
 async function createItem(req, res) {
-    const { name, description, quantity, price, categoryId } = req.body;
-    await Item.create({ name, description, quantity, price, categoryId });
-    res.status(201).json({ message: "Item created" });
+    try {
+        const { name, description, quantity, price, categoryId } = req.body;
+        await Item.create({ name, description, quantity, price, categoryId });
+        res.status(201).json({ message: "Item created" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to create item" });
+    }
 }
 
 async function editItemPage(req, res) {
