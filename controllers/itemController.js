@@ -58,7 +58,12 @@ async function updateItem(req, res) {
 
 async function deleteItem(req, res) {
     try {
-        await Item.destroy({ where: { id: req.params.id } });
+        const deleted = await Item.destroy({ where: { id: req.params.id } });
+
+        if (!deleted) {
+            return res.status(404).json({ error: "Item not found" });
+        }
+
         res.json({ message: "Item deleted" });
     } catch (error) {
         console.error(error);
