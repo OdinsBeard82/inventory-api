@@ -23,6 +23,10 @@ async function createItemPage(req, res) {
 async function createItem(req, res) {
     try {
         const { name, description, quantity, price, categoryId } = req.body;
+
+        if (!name || !name.trim()) {
+            return res.status(400).json({ error: "Name is required" });
+        }
         await Item.create({ name, description, quantity, price, categoryId });
         res.status(201).json({ message: "Item created" });
     } catch (error) {
