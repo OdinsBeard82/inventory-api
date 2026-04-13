@@ -32,6 +32,10 @@ async function createItem(req, res) {
             return res.status(400).json({ error: "Quantity must be a non-negative number" });
         }
 
+        if (price == null || isNaN(price) || Number(price) < 0) {
+            return res.status(400).json({ error: "Price must be a non-negative number" });
+        }
+
         await Item.create({ name, description, quantity, price, categoryId });
         res.status(201).json({ message: "Item created" });
     } catch (error) {
