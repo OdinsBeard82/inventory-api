@@ -68,6 +68,22 @@ async function updateItem(req, res) {
     try {
         const { name, description, quantity, price, categoryId } = req.body;
 
+        if (!name || !name.trim()) {
+            return res.status(400).json({ error: "Name is required" });
+        }
+
+        if (quantity == null || isNaN(quantity) || Number(quantity) < 0) {
+            return res.status(400).json({ error: "Quantity must be a non-negative number" });
+        }
+
+        if (price == null || isNaN(price) || Number(price) < 0) {
+            return res.status(400).json({ error: "Price must be a non-negative number" });
+        }
+
+        if (categoryId == null) {
+            return res.status(400).json({ error: "Category ID is required" })
+        }
+
         const [updated] = await Item.update(
             { name, description, quantity, price, categoryId },
             { where: { id: req.params.id } }
