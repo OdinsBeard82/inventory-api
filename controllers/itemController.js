@@ -34,6 +34,11 @@ async function createItem(req, res) {
 async function editItemPage(req, res) {
     try {
         const item = await Item.findByPk(req.params.id);
+
+        if (!item) {
+            return res.status(404).json({ error: "Item not found" });
+        }
+
         const categories = await Category.findAll();
         res.json({ item, categories });
     } catch (error) {
@@ -45,10 +50,16 @@ async function editItemPage(req, res) {
 async function updateItem(req, res) {
     try {
         const { name, description, quantity, price, categoryId } = req.body;
-        await Item.update(
+
+        const [updated] = await Item.update(
             { name, description, quantity, price, categoryId },
             { where: { id: req.params.id } }
         );
+
+        if (!updated) {
+            return res.status(404).json({ error: "Item not found" });
+        }
+
         res.json({ message: "Item updated" });
     } catch (error) {
         console.error(error);
