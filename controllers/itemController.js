@@ -36,6 +36,10 @@ async function createItem(req, res) {
             return res.status(400).json({ error: "Price must be a non-negative number" });
         }
 
+        if (categoryId == null) {
+            return res.status(400).json({ error: "Category ID is required" })
+        }
+
         await Item.create({ name, description, quantity, price, categoryId });
         res.status(201).json({ message: "Item created" });
     } catch (error) {
