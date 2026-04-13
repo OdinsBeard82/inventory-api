@@ -27,6 +27,11 @@ async function createItem(req, res) {
         if (!name || !name.trim()) {
             return res.status(400).json({ error: "Name is required" });
         }
+
+        if (quantity == null || isNaN(quantity) || Number(quantity) < 0) {
+            return res.status(400).json({ error: "Quantity must be a non-negative number" });
+        }
+
         await Item.create({ name, description, quantity, price, categoryId });
         res.status(201).json({ message: "Item created" });
     } catch (error) {
