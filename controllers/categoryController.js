@@ -13,11 +13,6 @@ async function createCategory(req, res) {
     res.status(201).json(category);
 }
 
-async function editCategoryPage(req, res) {
-    const category = await Category.findByPk(req.params.id);
-    res.json(category);
-}
-
 async function updateCategory(req, res) {
     const { name, description } = req.body;
 
