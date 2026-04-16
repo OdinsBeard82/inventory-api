@@ -1,8 +1,13 @@
 const { Category } = require('../models');
 
 async function listCategories(req, res) {
-    const categories = await Category.findAll();
-    res.json(categories);
+    try {
+        const categories = await Category.findAll();
+        res.json(categories);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to fetch categories" });
+    }
 }
 
 async function createCategory(req, res) {
