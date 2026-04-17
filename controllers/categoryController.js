@@ -11,11 +11,23 @@ async function listCategories(req, res) {
 }
 
 async function createCategory(req, res) {
-    const { name, description } = req.body;
+    try {
+        const { name, description } = req.body;
 
-    const category = await Category.create({ name, description });
+        if (!name || !name.trim()) {
+            return res.status(400).json({ error: "Name is required" });
+        }
 
-    res.status(201).json(category);
+        const category = await Category.create({
+            name: name.trim(),
+            description
+        });
+
+        res.status(201).json({ message: "Category created", category });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to create category" });
+    }
 }
 
 async function updateCategory(req, res) {
