@@ -15,7 +15,12 @@ exports.register = async (req, res) => {
     }
 
     try {
-        const user = await User.create({ username, password });
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const user = await User.create({
+            username,
+            password_hash: hashedPassword
+        });
 
         res.status(201).json({
             message: "User created",
@@ -35,6 +40,15 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     const { username, password } = req.body;
+
+    if (!username) {
+        return res.status(400).json({ error: "Username is required" });
+    }
+
+    if (!password) {
+        return res.status(400).json({ error: "Password is required" });
+    }
+
 
     try {
         const user = await User.findOne({
