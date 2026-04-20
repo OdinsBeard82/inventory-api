@@ -31,14 +31,27 @@ async function createCategory(req, res) {
 }
 
 async function updateCategory(req, res) {
-    const { name, description } = req.body;
+    try {
+        const { name, description } = req.body;
 
-    await Category.update(
-        { name, description },
-        { where: { id: req.params.id } }
-    );
+        if (!name || !name.trim()) {
+            return res.status(400).json({ error: "Name is required" });
+        }
 
-    res.json({ message: "Category updated" });
+        const [updated] = await Category.update(
+            { name: name.trim(), description },
+            { where: { id: req.params.id } }
+        );
+
+        if (!updated) {
+            return res.status(404).json({ error: "Category not found" });
+        }
+
+        res.json({ message: "Category updated" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to update category" });
+    }
 }
 
 async function deleteCategory(req, res) {
@@ -49,7 +62,6 @@ async function deleteCategory(req, res) {
 module.exports = {
     listCategories,
     createCategory,
-    editCategoryPage,
     updateCategory,
     deleteCategory
 };
