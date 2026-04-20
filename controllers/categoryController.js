@@ -55,8 +55,18 @@ async function updateCategory(req, res) {
 }
 
 async function deleteCategory(req, res) {
-    await Category.destroy({ where: { id: req.params.id } });
-    res.json({ message: "Category deleted" });
+    try {
+        const deleted = await Category.destroy({ where: { id: req.params.id } });
+
+        if (!deleted) {
+            return res.status(404).json({ error: "Category not found" });
+        }
+
+        res.json({ message: "Category deleted" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to delete category" });
+    }
 }
 
 module.exports = {
