@@ -6,6 +6,14 @@ const jwt = require('jsonwebtoken');
 exports.register = async (req, res) => {
     const { username, password } = req.body;
 
+    if (!username) {
+        return res.status(400).json({ error: "Username is required" });
+    }
+
+    if (!password) {
+        return res.status(400).json({ error: "Password is required" });
+    }
+
     try {
         const user = await User.create({ username, password });
 
