@@ -1,10 +1,20 @@
 # Inventory API
 
-A RESTful inventory management API built with Node.js, Express, Sequelize, PostgreSQL, bcrypt, and JWT authentication.
+A production-deployed RESTful API for inventory management, built with Node.js, Express, Sequelize, PostgreSQL, bcrypt, and JWT authentication.
+
+## Live Demo
+
+**Base URL:** https://inventory-api-2-hldb.onrender.com
+
+> Note: hosted on Render's free tier — first request may take ~50 seconds to wake up.
+
+Try it immediately (no auth required):
+
+GET https://inventory-api-2-hldb.onrender.com/api/categories
 
 ## Overview
 
-This project is a backend-only API for managing inventory items and categories. It includes user registration and login, password hashing, JWT-based route protection, and CRUD operations for items and categories.
+This project is a backend API for managing inventory items and categories. It includes user registration and login, password hashing, JWT-based route protection, and CRUD operations for items and categories.
 
 ## Features
 
@@ -53,8 +63,6 @@ npm install
 
 ### 3. Create a `.env` file
 
-Example:
-
 ```env
 PORT=3000
 TOKEN_SECRET=your_jwt_secret_here
@@ -64,9 +72,11 @@ DB_PASSWORD=your_database_password
 DB_HOST=localhost
 ```
 
-### 4. Run the database and migrations
+### 4. Run migrations
 
-Use your normal Sequelize workflow for creating the database and running migrations.
+```bash
+npm run migrate
+```
 
 ### 5. Start the server
 
@@ -74,11 +84,7 @@ Use your normal Sequelize workflow for creating the database and running migrati
 npm start
 ```
 
-The API will run at:
-
-```bash
-http://localhost:3000
-```
+The API will run at `http://localhost:3000`
 
 ## Authentication Flow
 
@@ -198,8 +204,6 @@ curl -X DELETE http://localhost:3000/api/items/1 \
 
 ## Validation and Error Handling
 
-The API includes validation and structured error responses such as:
-
 * `400 Bad Request` for missing or invalid input
 * `401 Unauthorized` for missing or invalid token / invalid credentials
 * `404 Not Found` for missing items or categories
@@ -207,24 +211,19 @@ The API includes validation and structured error responses such as:
 
 ## What I Learned
 
-This project helped me practice:
-
-* building RESTful APIs with Express
-* structuring controllers and routes
-* working with Sequelize models and associations
-* handling authentication with JWT
-* hashing passwords securely with bcrypt
-* validating input and returning meaningful status codes
-* debugging route protection and authentication flow
+* Building and deploying RESTful APIs with Express
+* Structuring controllers, routes, and middleware
+* Working with Sequelize models and associations
+* Handling authentication with JWT
+* Hashing passwords securely with bcrypt
+* Configuring environment-specific database connections for production
+* Deploying Node.js + PostgreSQL to Render
 
 ## Future Improvements
 
-* add duplicate username checks during registration
-* add password strength rules
-* add tests for controllers and routes
-* add a Postman collection for easier demo/testing
-* deploy the API for live demonstration
-
-## Notes
-
-This project is backend-only, so there is no frontend UI. It is intended to be tested with curl, Postman, or another API client.
+* Add duplicate username checks during registration
+* Add password strength rules
+* Add tests for controllers and routes
+* Add a Postman collection for easier demo/testing
+* Add role-based access control (admin vs standard user)
+* Add pagination for item listings
